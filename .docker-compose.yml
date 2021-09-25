@@ -1,0 +1,25 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+    ports:
+      - # host:container
+    environment:
+      POSTGRES_USER: #set db username
+      POSTGRES_PASSWORD: #set db password
+      POSTGRES_DB: # default db name
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: # pgadmin user email
+      PGADMIN_DEFAULT_PASSWORD: # pgadmin password
+    ports:
+      - # host:container
