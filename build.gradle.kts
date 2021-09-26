@@ -2,6 +2,7 @@ plugins {
     application
     kotlin("jvm") version Versions.kotlin
     id("org.jetbrains.kotlin.plugin.serialization") version Versions.kotlin
+    id("org.flywaydb.flyway") version Versions.flyway
 }
 
 group = "com.stegnerd"
@@ -19,6 +20,7 @@ dependencies {
     implementation(Deps.Database.exposedCore)
     implementation(Deps.Database.exposedDao)
     implementation(Deps.Database.exposedJDBC)
+    implementation(Deps.Database.flyway)
     implementation(Deps.Database.hikariCP)
     implementation(Deps.Database.postgresql)
 
@@ -38,4 +40,13 @@ dependencies {
 
     // Ktor
     testImplementation(Deps.Tests.Ktor.serverTests)
+}
+
+flyway {
+    // TODO: Might need to change this??
+    url = System.getenv("DB_URL")
+    user = System.getenv("DB_USER")
+    password = System.getenv("DB_PASSWORD")
+    baselineOnMigrate=true
+    locations = arrayOf("filesystem:resources/db/migrations")
 }

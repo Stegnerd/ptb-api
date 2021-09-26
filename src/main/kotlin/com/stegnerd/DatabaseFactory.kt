@@ -1,10 +1,14 @@
-package com.stegnerd.db
+package com.stegnerd
 
 import com.typesafe.config.ConfigFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.config.HoconApplicationConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseFactory {
 
@@ -15,6 +19,9 @@ object DatabaseFactory {
 
     fun init() {
         Database.connect(hikari())
+        // auto migration when spinning up db
+        val flyway = Flyway.configure().dataSource(dbUrl, dbUser, dbPassword).load()
+        flyway.migrate()
     }
 
     private fun hikari(): HikariDataSource {
@@ -31,4 +38,14 @@ object DatabaseFactory {
         config.validate()
         return HikariDataSource(config)
     }
+
+    /**
+     * this function will suspend the current coroutine and launch a new one on the special IO thread pool
+     * - which will then block whilst the database transaction is performed.
+     * When the result is ready, the coroutine is resumed and returned to the initial caller.
+     */
+    suspend fun <T> dbQuery(block: () -> T): T =
+        withContext(Dispatchers.IO) {
+            transaction { block() }
+        }
 }
