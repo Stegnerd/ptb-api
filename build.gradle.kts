@@ -15,6 +15,13 @@ repositories {
 }
 
 dependencies {
+    // Database
+    implementation(Deps.Database.exposedCore)
+    implementation(Deps.Database.exposedDao)
+    implementation(Deps.Database.exposedJDBC)
+    implementation(Deps.Database.hikariCP)
+    implementation(Deps.Database.postgresql)
+
     // Ktor
     implementation(Deps.Ktor.auth)
     implementation(Deps.Ktor.authJwt)

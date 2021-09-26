@@ -1,14 +1,24 @@
 
-
 object Versions {
-    const val ktor = "1.6.3"
+    const val exposed = "0.35.1"
+    const val hikariCP = "5.0.0"
     const val kotlin = "1.5.31"
+    const val ktor = "1.6.3"
     const val logback = "1.2.3"
+    const val postgresql = "42.2.24"
 }
 
 object Deps {
 
     const val logback = "ch.qos.logback:logback-classic:${Versions.logback}"
+
+    object Database {
+        const val exposedCore = "org.jetbrains.exposed:exposed-core:${Versions.exposed}"
+        const val exposedDao = "org.jetbrains.exposed:exposed-dao:${Versions.exposed}"
+        const val exposedJDBC = "org.jetbrains.exposed:exposed-jdbc:${Versions.exposed}"
+        const val hikariCP = "com.zaxxer:HikariCP:${Versions.hikariCP}"
+        const val postgresql = "org.postgresql:postgresql:${Versions.postgresql}"
+    }
 
     object Ktor {
         const val auth = "io.ktor:ktor-auth:${Versions.ktor}"
