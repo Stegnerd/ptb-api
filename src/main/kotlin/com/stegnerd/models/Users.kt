@@ -1,11 +1,7 @@
-package com.stegnerd.db.models
+package com.stegnerd.models
 
-import org.jetbrains.exposed.dao.id.IntIdTable
-import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.Table
-import org.postgresql.util.ByteConverter.bool
-import java.util.*
 
 /**
  * Creates an identity table named trainer where pk is id as an uuid

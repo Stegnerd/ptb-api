@@ -34,6 +34,9 @@ dependencies {
     // Logging
     implementation(Deps.logback)
 
+    // Security
+    implementation(Deps.jbcrypt)
+
     // Tests
     // Kotlin
     testImplementation(Deps.Tests.Kotlin.test)

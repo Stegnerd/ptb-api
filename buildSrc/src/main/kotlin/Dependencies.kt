@@ -1,5 +1,6 @@
 
 object Versions {
+    const val jbcrypt = "0.4"
     const val exposed = "0.35.1"
     const val flyway = "7.15.0"
     const val hikariCP = "5.0.0"
@@ -11,6 +12,7 @@ object Versions {
 
 object Deps {
 
+    const val jbcrypt = "org.mindrot:jbcrypt:${Versions.jbcrypt}"
     const val logback = "ch.qos.logback:logback-classic:${Versions.logback}"
 
     object Database {

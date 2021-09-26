@@ -1,10 +1,9 @@
 package com.stegnerd.services
 
 import com.stegnerd.DatabaseFactory.dbQuery
-import com.stegnerd.db.models.User
-import com.stegnerd.db.models.Users
+import com.stegnerd.models.User
+import com.stegnerd.models.Users
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 
