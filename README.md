@@ -3,7 +3,7 @@
 You will need to update the configurations files and remove the period in front of the file names:
 - .docker-compose.yml
 - src/main/resources/.application.conf
-- gradle.properties
+- .gradle.properties
 
 TODO:
 1. env file for env variables (remove hard coded strings!)
