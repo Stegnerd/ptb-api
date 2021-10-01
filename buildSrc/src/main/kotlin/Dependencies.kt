@@ -8,10 +8,10 @@ object Versions {
     const val ktor = "1.6.3"
     const val logback = "1.2.3"
     const val postgresql = "42.2.24"
+    const val shadow = "7.0.0"
 }
 
 object Deps {
-
     const val jbcrypt = "org.mindrot:jbcrypt:${Versions.jbcrypt}"
     const val logback = "ch.qos.logback:logback-classic:${Versions.logback}"
 

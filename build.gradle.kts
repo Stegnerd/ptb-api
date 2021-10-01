@@ -3,6 +3,7 @@ plugins {
     kotlin("jvm") version Versions.kotlin
     id("org.jetbrains.kotlin.plugin.serialization") version Versions.kotlin
     id("org.flywaydb.flyway") version Versions.flyway
+    id("com.github.johnrengelman.shadow") version Versions.shadow
 }
 
 group = "com.stegnerd"
@@ -13,6 +14,15 @@ application {
 
 repositories {
     mavenCentral()
+}
+
+// this builds an uber jar for the docker container to deploy with
+tasks{
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
+        }
+    }
 }
 
 dependencies {
@@ -45,11 +55,13 @@ dependencies {
     testImplementation(Deps.Tests.Ktor.serverTests)
 }
 
+val dbUrl: String by project
+val dbUser: String by project
+val dbPassword: String by project
 flyway {
-    // TODO: Might need to change this??
-    url = System.getenv("DB_URL")
-    user = System.getenv("DB_USER")
-    password = System.getenv("DB_PASSWORD")
+    url = dbUrl
+    user = dbUser
+    password = dbPassword
     baselineOnMigrate=true
     locations = arrayOf("filesystem:resources/db/migrations")
 }

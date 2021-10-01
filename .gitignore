@@ -4,5 +4,6 @@
 .idea
 
 # config files
+gradle.properties
 docker-compose.yml
 application.conf

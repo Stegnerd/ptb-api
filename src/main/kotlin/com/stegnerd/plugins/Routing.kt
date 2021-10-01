@@ -1,6 +1,7 @@
 package com.stegnerd.plugins
 
 import com.stegnerd.models.LoginRequest
+import com.stegnerd.models.RegisterRequest
 import com.stegnerd.services.UserService
 import io.ktor.application.Application
 import io.ktor.application.call
@@ -18,7 +19,6 @@ fun Application.configureRouting() {
     val simpleJWT = SimpleJWT(environment.config.property("jwt.secret").getString())
     val userService = UserService();
 
-
     routing {
         get("/") {
             call.respondText("Hello World!")
@@ -31,6 +31,12 @@ fun Application.configureRouting() {
                 error("Invalid Credentials")
             }
 
+            call.respond(mapOf("token" to simpleJWT.sign(user.id, jwtAudience, jwtIssuer)))
+        }
+        post("/register") {
+            val post = call.receive<RegisterRequest>()
+
+            val user = userService.createUser(post)
             call.respond(mapOf("token" to simpleJWT.sign(user.id, jwtAudience, jwtIssuer)))
         }
     }
