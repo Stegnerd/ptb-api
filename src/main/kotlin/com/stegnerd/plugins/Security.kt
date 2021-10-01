@@ -1,29 +1,52 @@
 package com.stegnerd.plugins
 
-import io.ktor.auth.*
-import io.ktor.util.*
-import io.ktor.auth.jwt.*
 import com.auth0.jwt.JWT
-import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
+import io.ktor.application.Application
+import io.ktor.auth.authentication
+import io.ktor.auth.jwt.JWTPrincipal
+import io.ktor.auth.jwt.jwt
+import java.util.*
+
+class SimpleJWT(secret: String) {
+    // ten hours
+    private val validityInMs = 36_000_000
+    private val algorithm = Algorithm.HMAC256(secret)
+
+    fun sign(id: Int, audience: String, issuer: String): String = JWT.create()
+        .withSubject("Authentication")
+        .withAudience(audience)
+        .withIssuer(issuer)
+        .withClaim("id", id)
+        .withExpiresAt(getExpiration())
+        .sign(algorithm)
+
+    private fun getExpiration() = Date(System.currentTimeMillis() + validityInMs)
+}
+
 
 fun Application.configureSecurity() {
+    val jwtSecret = environment.config.property("jwt.secret").getString()
+    val jwtIssuer = environment.config.property("jwt.issuer").getString()
+    val jwtAudience = environment.config.property("jwt.audience").getString()
+    val jwtRealm = environment.config.property("jwt.realm").getString()
+
     authentication {
         jwt {
-            val jwtAudience = environment.config.property("jwt.audience").getString()
-            realm = environment.config.property("jwt.realm").getString()
+            realm = jwtRealm
             verifier(
                 JWT
-                    .require(Algorithm.HMAC256("secret"))
+                    .require(Algorithm.HMAC256(jwtSecret))
                     .withAudience(jwtAudience)
-                    .withIssuer(environment.config.property("jwt.domain").getString())
+                    .withIssuer(jwtIssuer)
                     .build()
             )
             validate { credential ->
-                if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
+                if (credential.payload.audience.contains(jwtAudience) &&
+                    credential.payload.getClaim("id").asString() != ""
+                ) {
+                    JWTPrincipal(credential.payload)
+                } else null
             }
         }
     }

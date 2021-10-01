@@ -2,6 +2,8 @@ plugins {
     application
     kotlin("jvm") version Versions.kotlin
     id("org.jetbrains.kotlin.plugin.serialization") version Versions.kotlin
+    id("org.flywaydb.flyway") version Versions.flyway
+    id("com.github.johnrengelman.shadow") version Versions.shadow
 }
 
 group = "com.stegnerd"
@@ -14,11 +16,21 @@ repositories {
     mavenCentral()
 }
 
+// this builds an uber jar for the docker container to deploy with
+tasks{
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
+        }
+    }
+}
+
 dependencies {
     // Database
     implementation(Deps.Database.exposedCore)
     implementation(Deps.Database.exposedDao)
     implementation(Deps.Database.exposedJDBC)
+    implementation(Deps.Database.flyway)
     implementation(Deps.Database.hikariCP)
     implementation(Deps.Database.postgresql)
 
@@ -32,10 +44,24 @@ dependencies {
     // Logging
     implementation(Deps.logback)
 
+    // Security
+    implementation(Deps.jbcrypt)
+
     // Tests
     // Kotlin
     testImplementation(Deps.Tests.Kotlin.test)
 
     // Ktor
     testImplementation(Deps.Tests.Ktor.serverTests)
+}
+
+val dbUrl: String by project
+val dbUser: String by project
+val dbPassword: String by project
+flyway {
+    url = dbUrl
+    user = dbUser
+    password = dbPassword
+    baselineOnMigrate=true
+    locations = arrayOf("filesystem:resources/db/migrations")
 }
