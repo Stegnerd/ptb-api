@@ -3,7 +3,8 @@ package com.stegnerd.plugins
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.application.Application
-import io.ktor.auth.authentication
+import io.ktor.application.install
+import io.ktor.auth.Authentication
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
 import java.util.*
@@ -13,11 +14,12 @@ class SimpleJWT(secret: String) {
     private val validityInMs = 36_000_000
     private val algorithm = Algorithm.HMAC256(secret)
 
-    fun sign(id: Int, audience: String, issuer: String): String = JWT.create()
+    fun sign(id: Int, email: String, audience: String, issuer: String): String = JWT.create()
         .withSubject("Authentication")
         .withAudience(audience)
         .withIssuer(issuer)
         .withClaim("id", id)
+        .withClaim("email", email)
         .withExpiresAt(getExpiration())
         .sign(algorithm)
 
@@ -31,7 +33,7 @@ fun Application.configureSecurity() {
     val jwtAudience = environment.config.property("jwt.audience").getString()
     val jwtRealm = environment.config.property("jwt.realm").getString()
 
-    authentication {
+    install(Authentication) {
         jwt {
             realm = jwtRealm
             verifier(
