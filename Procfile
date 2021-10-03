@@ -1,0 +1,1 @@
+web: ./build/install/ptb-api/bin/ptb-api
