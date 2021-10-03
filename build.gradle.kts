@@ -25,6 +25,11 @@ tasks{
     }
 }
 
+// used for heroku
+tasks.create("stage") {
+    dependsOn("installDist")
+}
+
 dependencies {
     // Database
     implementation(Deps.Database.exposedCore)
