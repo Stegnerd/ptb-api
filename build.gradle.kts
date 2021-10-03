@@ -59,9 +59,9 @@ val dbUrl: String by project
 val dbUser: String by project
 val dbPassword: String by project
 flyway {
-    url = dbUrl
-    user = dbUser
-    password = dbPassword
+    url = System.getenv("jdbcUrl")
+    user = System.getenv("dbUser")
+    password = System.getenv("dbPassword")
     baselineOnMigrate=true
     locations = arrayOf("filesystem:resources/db/migrations")
 }
