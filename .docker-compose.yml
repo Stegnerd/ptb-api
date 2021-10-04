@@ -9,10 +9,13 @@ services:
       - "dbdata:/var/lib/postgresql/data"
     ports:
       - # host:container
+      - "5432:5432"
     environment:
       POSTGRES_USER: #set db username
       POSTGRES_PASSWORD: #set db password
       POSTGRES_DB: # default db name
+    networks:
+      apipostgres:
 
   pgadmin:
     image: dpage/pgadmin4
@@ -23,3 +26,25 @@ services:
       PGADMIN_DEFAULT_PASSWORD: # pgadmin password
     ports:
       - # host:container
+    networks:
+      apipostgres:
+
+  # If you want to run api in contrainer as well
+  #  app:
+  #    build:
+  #      context: .
+  #      dockerfile: Dockerfile
+  #    ports:
+  #      - "5031:8080"
+  #    links:
+  #      - db
+  #    depends_on:
+  #      - db
+  #    networks:
+  #      apipostgres:
+
+volumes:
+  dbdata:
+
+networks:
+  apipostgres:
