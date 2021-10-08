@@ -31,9 +31,13 @@ tasks.create("stage") {
 }
 
 dependencies {
+    // DI
+    implementation(Deps.koin)
+
     // Database
     implementation(Deps.Database.exposedCore)
     implementation(Deps.Database.exposedDao)
+    implementation(Deps.Database.exposedJavaTime)
     implementation(Deps.Database.exposedJDBC)
     implementation(Deps.Database.flyway)
     implementation(Deps.Database.hikariCP)

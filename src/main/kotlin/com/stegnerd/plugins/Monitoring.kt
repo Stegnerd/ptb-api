@@ -1,13 +1,12 @@
 package com.stegnerd.plugins
 
-import io.ktor.features.*
-import org.slf4j.event.*
-import io.ktor.application.*
-import io.ktor.request.*
+import io.ktor.application.Application
+import io.ktor.application.install
+import io.ktor.features.CallLogging
+import org.slf4j.event.Level
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
-        level = Level.INFO
-        filter { call -> call.request.path().startsWith("/") }
+        level = Level.DEBUG
     }
 }
