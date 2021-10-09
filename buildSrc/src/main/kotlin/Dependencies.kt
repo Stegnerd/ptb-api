@@ -1,13 +1,16 @@
 
 object Versions {
-    const val jbcrypt = "0.4"
+    const val assertJ = "3.21.0"
     const val exposed = "0.35.1"
     const val flyway = "7.15.0"
     const val hikariCP = "5.0.0"
+    const val jbcrypt = "0.4"
+    const val junit = "5.8.1"
     const val koin = "3.1.2"
     const val kotlin = "1.5.31"
     const val ktor = "1.6.3"
     const val logback = "1.2.3"
+    const val mockk = "1.12.0"
     const val postgresql = "42.2.24"
     const val shadow = "7.0.0"
 }
@@ -43,6 +46,14 @@ object Deps {
     }
 
     object Tests {
+        const val assertJ = "org.assertj:assertj-core:${Versions.assertJ}"
+        const val mockk = "io.mockk:mockk:${Versions.mockk}"
+
+        object Junit {
+            const val jupiter = "org.junit.jupiter:junit-jupiter:${Versions.junit}"
+            const val jupiterEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit}"
+        }
+
         object Kotlin {
             const val test = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}"
         }
