@@ -40,6 +40,7 @@ dependencies {
     implementation(Deps.Database.exposedJavaTime)
     implementation(Deps.Database.exposedJDBC)
     implementation(Deps.Database.flyway)
+    implementation(Deps.Database.h2)
     implementation(Deps.Database.hikariCP)
     implementation(Deps.Database.postgresql)
     // Ktor
@@ -65,7 +66,6 @@ dependencies {
     testImplementation(Deps.Tests.Ktor.serverTests)
 }
 
-
 // this builds an uber jar for the docker container to deploy with
 tasks{
     shadowJar {
@@ -90,7 +90,8 @@ tasks.test {
             showExceptions = true
             showCauses = true
             showStackTraces = true
-            showStandardStreams = true
+            // turn this on for extra debugging during build
+            showStandardStreams = false
         }
         info.events = lifecycle.events
         info.exceptionFormat = lifecycle.exceptionFormat
@@ -99,6 +100,7 @@ tasks.test {
     val failedTests = mutableListOf<TestDescriptor>()
     val skippedTests = mutableListOf<TestDescriptor>()
 
+    // this adds nice logging after tests to show stats
     addTestListener(object : TestListener {
         override fun beforeSuite(suite: TestDescriptor) {}
         override fun beforeTest(testDescriptor: TestDescriptor) {}

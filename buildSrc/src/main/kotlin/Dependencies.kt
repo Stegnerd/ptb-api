@@ -3,6 +3,7 @@ object Versions {
     const val assertJ = "3.21.0"
     const val exposed = "0.35.1"
     const val flyway = "7.15.0"
+    const val h2 = "1.4.200"
     const val hikariCP = "5.0.0"
     const val jbcrypt = "0.4"
     const val junit = "5.8.1"
@@ -28,6 +29,8 @@ object Deps {
         const val exposedJDBC = "org.jetbrains.exposed:exposed-jdbc:${Versions.exposed}"
         // db migrations
         const val flyway = "org.flywaydb:flyway-core:${Versions.flyway}"
+        // in mem db for unit tests
+        const val h2 = "com.h2database:h2:${Versions.h2}"
         // db configuration
         const val hikariCP = "com.zaxxer:HikariCP:${Versions.hikariCP}"
         // sql driver

@@ -33,7 +33,7 @@ object Users : Table(), UserDao {
     val trainerName: Column<String> = varchar("trainer_name", 32)
     val email: Column<String> = varchar("email", 64)
     val password: Column<String> = varchar("password", 128)
-    val active: Column<Boolean> = bool("active")
+    val active: Column<Boolean> = bool("active").default(true)
     val created: Column<LocalDateTime> =
         datetime("created_utc").clientDefault { ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime() }
     val updated: Column<LocalDateTime> =
