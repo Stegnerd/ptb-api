@@ -9,6 +9,8 @@ import com.stegnerd.database.di.DaoInjection
 import com.stegnerd.modules.auth.JwtConfig
 import com.stegnerd.modules.auth.TokenProvider
 import com.stegnerd.modules.di.ModulesInjection
+import com.stegnerd.utils.PasswordWrapper
+import com.stegnerd.utils.PasswordWrapperContract
 import com.typesafe.config.ConfigFactory
 import io.ktor.application.Application
 import io.ktor.application.install
@@ -31,6 +33,7 @@ fun main(args: Array<String>) {
                         single { config }
                         single<DatabaseProviderContract> { DatabaseProvider() }
                         single<JWTVerifier> { JwtConfig.verifier }
+                        single<PasswordWrapperContract> { PasswordWrapper }
                         single<TokenProvider> { JwtConfig }
                     },
                     ApiInjection.module,

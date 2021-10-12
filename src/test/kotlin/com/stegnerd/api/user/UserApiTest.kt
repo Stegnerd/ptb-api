@@ -6,6 +6,7 @@ import com.stegnerd.stub.model.AuthStub.generateRegisterUserRequest
 import com.stegnerd.stub.model.UserStub
 import com.stegnerd.stub.model.UserStub.generateUser
 import com.stegnerd.utils.InvalidUserException
+import com.stegnerd.utils.PasswordWrapperContract
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -20,12 +21,14 @@ import org.koin.dsl.module
 class UserApiTest : BaseApiTest() {
 
     private val userDao: UserDao = mockk()
+    private val passwordWrapper: PasswordWrapperContract = mockk()
     private val api: UserApi = UserApiImpl
 
     init {
         startInjection(
             module {
                 single { userDao }
+                single { passwordWrapper }
             }
         )
     }
@@ -73,6 +76,7 @@ class UserApiTest : BaseApiTest() {
     fun `createAccount returns user when account created`() {
         val newUser = generateRegisterUserRequest()
         val user = generateUser(8)
+        every { passwordWrapper.encryptPassword(any()) } returns "sample"
         every { userDao.insertUser(any()) } returns 8
         every { userDao.getUserByID(any()) } returns user
 
@@ -87,6 +91,7 @@ class UserApiTest : BaseApiTest() {
     fun `createAccount throws error when failed to create Account`() {
         val newUser = generateRegisterUserRequest()
         val user = generateUser(8)
+        every { passwordWrapper.encryptPassword(any()) } returns "sample"
         every { userDao.insertUser(any()) } throws InvalidUserException("Error while creating user.")
         every { userDao.getUserByID(any()) } returns user
 
