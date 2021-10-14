@@ -1,6 +1,7 @@
-package com.stegnerd.api.user
+package com.stegnerd.api
 
-import com.stegnerd.api.BaseApiTest
+import com.stegnerd.api.user.UserApi
+import com.stegnerd.api.user.UserApiImpl
 import com.stegnerd.database.dao.UserDao
 import com.stegnerd.stub.model.AuthStub.generateRegisterUserRequest
 import com.stegnerd.stub.model.UserStub

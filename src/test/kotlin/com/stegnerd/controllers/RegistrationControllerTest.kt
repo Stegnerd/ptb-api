@@ -1,7 +1,6 @@
-package com.stegnerd.controllers.Registration
+package com.stegnerd.controllers
 
 import com.stegnerd.api.user.UserApi
-import com.stegnerd.controllers.BaseControllerTest
 import com.stegnerd.modules.auth.TokenProvider
 import com.stegnerd.modules.registration.RegistrationController
 import com.stegnerd.modules.registration.RegistrationControllerImpl
@@ -9,6 +8,7 @@ import com.stegnerd.stub.model.AuthStub.generateCredentialResponse
 import com.stegnerd.stub.model.AuthStub.generateLoginUserRequest
 import com.stegnerd.stub.model.AuthStub.generateRegisterUserRequest
 import com.stegnerd.stub.model.UserStub.generateUser
+import com.stegnerd.utils.AuthenticationException
 import com.stegnerd.utils.InvalidUserException
 import com.stegnerd.utils.PasswordWrapperContract
 import io.mockk.clearMocks
@@ -107,11 +107,28 @@ class RegistrationControllerTest : BaseControllerTest() {
 
     @Test
     fun `login returns exception when wrong credentials`() {
+        val loginUserRequest = generateLoginUserRequest()
 
+        every { userApi.getUserByEmail(any()) } returns generateUser()
+        every { passwordWrapper.validatePassword(any(), any()) } returns false
+
+        assertThrows(AuthenticationException::class.java) {
+            runBlocking {
+                controller.login(loginUserRequest)
+            }
+        }
     }
 
     @Test
-    fun `login returns exception when api returns error`(){
+    fun `login returns exception when api returns no user`(){
+        val loginUserRequest = generateLoginUserRequest()
 
+        every { userApi.getUserByEmail(any()) } returns null
+
+        assertThrows(AuthenticationException::class.java) {
+            runBlocking {
+                controller.login(loginUserRequest)
+            }
+        }
     }
 }

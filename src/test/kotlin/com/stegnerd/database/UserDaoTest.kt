@@ -1,6 +1,6 @@
-package com.stegnerd.database.dao
+package com.stegnerd.database
 
-import com.stegnerd.database.BaseDaoTest
+import com.stegnerd.database.dao.Users
 import com.stegnerd.models.User
 import com.stegnerd.stub.model.AuthStub.generateRegisterUserRequest
 import com.stegnerd.stub.model.UserStub.generateUpdateUserRequest
@@ -119,7 +119,7 @@ class UserDaoTest : BaseDaoTest() {
 
     private fun insertTestUser(): User {
         val newUser = generateRegisterUserRequest()
-        var id = 0;
+        var id = 0
         transaction {
             val userID = Users.insertUser(newUser)
             userID?.let {

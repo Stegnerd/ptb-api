@@ -26,7 +26,7 @@ fun Route.userModule() {
         put{
             val updateUserRequest = call.receive<UpdateUserRequest>()
             val user = controller.updateAccount(call.user.id, updateUserRequest)
-            call.respond(user.toResponseUser())
+            call.respond(user)
         }
 
         delete {
