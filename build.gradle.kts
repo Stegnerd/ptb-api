@@ -1,3 +1,4 @@
+
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -14,7 +15,7 @@ plugins {
 }
 
 group = "com.stegnerd"
-version = "2.0.1"
+version = "2.0.2"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 }
@@ -71,6 +72,11 @@ tasks{
     shadowJar {
         manifest {
             attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
+        }
+    }
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
         }
     }
 }
