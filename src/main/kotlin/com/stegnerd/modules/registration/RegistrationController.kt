@@ -11,9 +11,9 @@ import com.stegnerd.modules.BaseController
 import com.stegnerd.modules.auth.TokenProvider
 import com.stegnerd.utils.AuthenticationException
 import com.stegnerd.utils.InvalidUserException
+import com.stegnerd.utils.PasswordWrapperContract
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.mindrot.jbcrypt.BCrypt
 
 interface RegistrationController {
     suspend fun login(loginRequest: LoginUserRequest): LoginTokenResponse
@@ -24,11 +24,12 @@ interface RegistrationController {
 class RegistrationControllerImpl: BaseController(), RegistrationController, KoinComponent {
 
     private val userApi by inject<UserApi>()
+    private val passwordWrapper by inject<PasswordWrapperContract>()
     private val tokenProvider by inject<TokenProvider>()
 
     override suspend fun login(loginRequest: LoginUserRequest): LoginTokenResponse  = dbQuery {
         userApi.getUserByEmail(loginRequest.email)?.let { user ->
-            if(BCrypt.checkpw(loginRequest.password, user.password)){
+            if(passwordWrapper.validatePassword(loginRequest.password, user.password)){
                 val credentialsResponse = tokenProvider.createTokens(user)
                 LoginTokenResponse(credentialsResponse)
             }else {
