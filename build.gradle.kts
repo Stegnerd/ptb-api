@@ -74,6 +74,12 @@ tasks{
             attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
         }
     }
+    // set kotlin version to 11
+    compileKotlin{
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
     compileTestKotlin {
         kotlinOptions {
             jvmTarget = "11"
