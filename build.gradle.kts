@@ -50,6 +50,7 @@ dependencies {
     implementation(Deps.Ktor.serialization)
     implementation(Deps.Ktor.serverCore)
     implementation(Deps.Ktor.serverNetty)
+    implementation(Deps.Ktor.tls)
     // Logging
     implementation(Deps.logback)
     // Security

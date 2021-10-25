@@ -41,6 +41,7 @@ object Deps {
         // auth
         const val auth = "io.ktor:ktor-auth:${Versions.ktor}"
         const val authJwt = "io.ktor:ktor-auth-jwt:${Versions.ktor}"
+        const val tls = "io.ktor:ktor-network-tls-certificates:${Versions.ktor}"
         // content negotiation
         const val serialization = "io.ktor:ktor-serialization:${Versions.ktor}"
         // core

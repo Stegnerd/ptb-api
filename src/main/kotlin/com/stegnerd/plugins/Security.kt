@@ -8,6 +8,7 @@ import com.stegnerd.modules.auth.authenticationModule
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.auth.Authentication
+import io.ktor.features.CORS
 import org.koin.ktor.ext.inject
 
 fun Application.configureSecurity() {
@@ -18,5 +19,9 @@ fun Application.configureSecurity() {
 
     install(Authentication){
         authenticationModule(config.jwtRealm,userApi, databaseProvider, jwtVerifier)
+    }
+
+    install(CORS){
+        anyHost()
     }
 }
