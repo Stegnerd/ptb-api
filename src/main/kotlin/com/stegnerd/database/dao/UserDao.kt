@@ -11,7 +11,6 @@ import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.javatime.datetime
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
-import org.mindrot.jbcrypt.BCrypt
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -61,7 +60,7 @@ object Users : Table(), UserDao {
             it[name] = newUser.name
             it[trainerName] = newUser.trainerName
             it[email] = newUser.email
-            it[password] = BCrypt.hashpw(newUser.password, BCrypt.gensalt())
+            it[password] = newUser.password
         })[id]
     }
 

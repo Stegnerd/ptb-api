@@ -71,7 +71,6 @@ class UserDaoTest : BaseDaoTest() {
                 assertThat(user?.name).isEqualTo(newUser.name)
                 assertThat(user?.trainerName).isEqualTo(newUser.trainerName)
                 assertThat(user?.email).isEqualTo(newUser.email)
-                assertThat(user?.password).isNotEqualTo(newUser.password)
             } ?: throw IllegalStateException("ID cannot be null.")
         }
     }
