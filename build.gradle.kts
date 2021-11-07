@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "com.stegnerd"
-version = "2.0.2"
+version = "2.0.3"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 }
