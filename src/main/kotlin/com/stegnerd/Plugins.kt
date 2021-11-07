@@ -6,6 +6,7 @@ import com.stegnerd.plugins.configureMonitoring
 import com.stegnerd.plugins.configureRouting
 import com.stegnerd.plugins.configureSecurity
 import com.stegnerd.plugins.configureSerialization
+import com.stegnerd.plugins.configureStatusPages
 import io.ktor.application.Application
 import io.ktor.application.ApplicationCall
 import io.ktor.auth.authentication
@@ -25,6 +26,8 @@ fun Application.configurePlugins() {
     configureSecurity()
     // Routes
     configureRouting()
+    // Error Handling/StatusPages
+    configureStatusPages()
 }
 
 // this allows us to do -> call.user.x (puts user in call context)

@@ -3,10 +3,10 @@ package com.stegnerd.api
 import com.stegnerd.api.user.UserApi
 import com.stegnerd.api.user.UserApiImpl
 import com.stegnerd.database.dao.UserDao
+import com.stegnerd.statuspages.InvalidUserException
 import com.stegnerd.stub.model.AuthStub.generateRegisterUserRequest
 import com.stegnerd.stub.model.UserStub
 import com.stegnerd.stub.model.UserStub.generateUser
-import com.stegnerd.utils.InvalidUserException
 import com.stegnerd.utils.PasswordWrapperContract
 import io.mockk.clearMocks
 import io.mockk.every
@@ -82,10 +82,10 @@ class UserApiTest : BaseApiTest() {
         every { userDao.getUserByID(any()) } returns user
 
         val insertedUser = api.createAccount(newUser)
-        assertThat(insertedUser?.id).isEqualTo(user.id)
-        assertThat(insertedUser?.email).isEqualTo(user.email)
-        assertThat(insertedUser?.name).isEqualTo(user.name)
-        assertThat(insertedUser?.trainerName).isEqualTo(user.trainerName)
+        assertThat(insertedUser.id).isEqualTo(user.id)
+        assertThat(insertedUser.email).isEqualTo(user.email)
+        assertThat(insertedUser.name).isEqualTo(user.name)
+        assertThat(insertedUser.trainerName).isEqualTo(user.trainerName)
     }
 
     @Test
