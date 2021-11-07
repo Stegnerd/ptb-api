@@ -9,8 +9,8 @@ import com.stegnerd.models.ResponseUser
 import com.stegnerd.models.toResponseUser
 import com.stegnerd.modules.BaseController
 import com.stegnerd.modules.auth.TokenProvider
-import com.stegnerd.utils.AuthenticationException
-import com.stegnerd.utils.InvalidUserException
+import com.stegnerd.statuspages.AuthenticationException
+import com.stegnerd.statuspages.InvalidUserException
 import com.stegnerd.utils.PasswordWrapperContract
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -43,7 +43,7 @@ class RegistrationControllerImpl: BaseController(), RegistrationController, Koin
             userApi.getUserByEmail(registerRequest.email)?.let {
                 throw InvalidUserException("Information already taken.")
             }
-            userApi.createAccount(registerRequest) ?: throw UnknownError("Internal server error.")
+            userApi.createAccount(registerRequest)
         }
         return user.toResponseUser()
     }

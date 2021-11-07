@@ -4,7 +4,7 @@ import com.stegnerd.database.dao.UserDao
 import com.stegnerd.models.RegisterUserRequest
 import com.stegnerd.models.UpdateUserRequest
 import com.stegnerd.models.User
-import com.stegnerd.utils.InvalidUserException
+import com.stegnerd.statuspages.InvalidUserException
 import com.stegnerd.utils.PasswordWrapperContract
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -21,7 +21,7 @@ object UserApiImpl: UserApi, KoinComponent {
         return usersDao.getUserByEmail(email)
     }
 
-    override fun createAccount(newUser: RegisterUserRequest): User? {
+    override fun createAccount(newUser: RegisterUserRequest): User {
         val encryptedUser = newUser.copy(password = passwordWrapper.encryptPassword(newUser.password))
         val id = usersDao.insertUser(encryptedUser)
         return id?.let {

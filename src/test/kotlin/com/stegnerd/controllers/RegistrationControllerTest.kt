@@ -4,12 +4,12 @@ import com.stegnerd.api.user.UserApi
 import com.stegnerd.modules.auth.TokenProvider
 import com.stegnerd.modules.registration.RegistrationController
 import com.stegnerd.modules.registration.RegistrationControllerImpl
+import com.stegnerd.statuspages.AuthenticationException
+import com.stegnerd.statuspages.InvalidUserException
 import com.stegnerd.stub.model.AuthStub.generateCredentialResponse
 import com.stegnerd.stub.model.AuthStub.generateLoginUserRequest
 import com.stegnerd.stub.model.AuthStub.generateRegisterUserRequest
 import com.stegnerd.stub.model.UserStub.generateUser
-import com.stegnerd.utils.AuthenticationException
-import com.stegnerd.utils.InvalidUserException
 import com.stegnerd.utils.PasswordWrapperContract
 import io.mockk.clearMocks
 import io.mockk.every
@@ -82,9 +82,9 @@ class RegistrationControllerTest : BaseControllerTest() {
         val registerUserRequest = generateRegisterUserRequest()
 
         every { userApi.getUserByEmail(any()) } returns null
-        every { userApi.createAccount(registerUserRequest) } returns null
+        every { userApi.createAccount(registerUserRequest) } throws InvalidUserException("Error while creating user.")
 
-        assertThrows(UnknownError::class.java) {
+        assertThrows(InvalidUserException::class.java) {
             runBlocking { controller.register(registerUserRequest) }
         }
     }
