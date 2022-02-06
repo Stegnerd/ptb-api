@@ -81,11 +81,8 @@ class UserApiTest : BaseApiTest() {
         every { userDao.insertUser(any()) } returns 8
         every { userDao.getUserByID(any()) } returns user
 
-        val insertedUser = api.createAccount(newUser)
-        assertThat(insertedUser.id).isEqualTo(user.id)
-        assertThat(insertedUser.email).isEqualTo(user.email)
-        assertThat(insertedUser.name).isEqualTo(user.name)
-        assertThat(insertedUser.trainerName).isEqualTo(user.trainerName)
+        val userCreated = api.createAccount(newUser)
+        assertThat(userCreated).isTrue
     }
 
     @Test

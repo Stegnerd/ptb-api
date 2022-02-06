@@ -18,8 +18,8 @@ fun Routing.registrationModule() {
     route("/auth") {
         post("register") {
             val registerRequest = call.receive<RegisterUserRequest>()
-            val user = controller.register(registerRequest)
-            call.respond(user)
+            val userCreated = controller.register(registerRequest)
+            call.respond(userCreated)
         }
 
         post("login") {

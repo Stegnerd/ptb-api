@@ -50,18 +50,14 @@ class RegistrationControllerTest : BaseControllerTest() {
     @Test
     fun `register creates valid user`() {
         val registerUserRequest = generateRegisterUserRequest()
-        val createdUser = generateUser(userID)
 
         every { userApi.getUserByEmail(any()) } returns null
-        every { userApi.createAccount(any()) } returns createdUser
+        every { userApi.createAccount(any()) } returns true
 
         runBlocking {
-            val responseUser = controller.register(registerUserRequest)
+            val userCreated = controller.register(registerUserRequest)
 
-            assertThat(responseUser.id).isEqualTo(userID)
-            assertThat(responseUser.email).isEqualTo(registerUserRequest.email)
-            assertThat(responseUser.name).isEqualTo(registerUserRequest.name)
-            assertThat(responseUser.trainerName).isEqualTo(registerUserRequest.trainerName)
+            assertThat(userCreated).isTrue
         }
     }
 
