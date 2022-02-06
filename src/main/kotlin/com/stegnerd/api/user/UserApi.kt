@@ -7,7 +7,7 @@ import com.stegnerd.models.User
 interface UserApi {
     fun getUserByID(ID: Int): User?
     fun getUserByEmail(email: String): User?
-    fun createAccount(newUser: RegisterUserRequest): User
+    fun createAccount(newUser: RegisterUserRequest): Boolean
     fun updateAccount(userID: Int, updateUserRequest: UpdateUserRequest): User?
     fun deleteAccount(userID: Int): Boolean
 }

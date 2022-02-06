@@ -5,8 +5,6 @@ import com.stegnerd.models.LoginTokenResponse
 import com.stegnerd.models.LoginUserRequest
 import com.stegnerd.models.RefreshTokenRequest
 import com.stegnerd.models.RegisterUserRequest
-import com.stegnerd.models.ResponseUser
-import com.stegnerd.models.toResponseUser
 import com.stegnerd.modules.BaseController
 import com.stegnerd.modules.auth.TokenProvider
 import com.stegnerd.statuspages.AuthenticationException
@@ -17,7 +15,7 @@ import org.koin.core.component.inject
 
 interface RegistrationController {
     suspend fun login(loginRequest: LoginUserRequest): LoginTokenResponse
-    suspend fun register(registerRequest: RegisterUserRequest): ResponseUser
+    suspend fun register(registerRequest: RegisterUserRequest): Boolean
     suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): LoginTokenResponse
 }
 
@@ -38,14 +36,14 @@ class RegistrationControllerImpl: BaseController(), RegistrationController, Koin
         } ?: throw AuthenticationException("Invalid Credentials.")
     }
 
-    override suspend fun register(registerRequest: RegisterUserRequest): ResponseUser {
-        val user = dbQuery {
+    override suspend fun register(registerRequest: RegisterUserRequest): Boolean {
+        val userCreated = dbQuery {
             userApi.getUserByEmail(registerRequest.email)?.let {
                 throw InvalidUserException("Information already taken.")
             }
             userApi.createAccount(registerRequest)
         }
-        return user.toResponseUser()
+        return userCreated
     }
 
     override suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): LoginTokenResponse = dbQuery {

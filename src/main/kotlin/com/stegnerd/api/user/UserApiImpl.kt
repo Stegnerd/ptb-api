@@ -21,12 +21,10 @@ object UserApiImpl: UserApi, KoinComponent {
         return usersDao.getUserByEmail(email)
     }
 
-    override fun createAccount(newUser: RegisterUserRequest): User {
+    override fun createAccount(newUser: RegisterUserRequest): Boolean {
         val encryptedUser = newUser.copy(password = passwordWrapper.encryptPassword(newUser.password))
-        val id = usersDao.insertUser(encryptedUser)
-        return id?.let {
-            usersDao.getUserByID(id)
-        } ?: throw InvalidUserException("Error while creating user.")
+        usersDao.insertUser(encryptedUser) ?: throw InvalidUserException("Error while creating user.")
+        return true
     }
 
     override fun updateAccount(userID: Int, updateUserRequest: UpdateUserRequest): User? {
