@@ -81,7 +81,6 @@ private fun ResultRow.mapRowToUser() =
     User(
         id = this[Users.id],
         name = this[Users.name],
-        trainerName = this[Users.trainerName],
         email = this[Users.email],
         active = this[Users.active],
         password = this[Users.password],

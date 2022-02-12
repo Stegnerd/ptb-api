@@ -42,7 +42,7 @@ class UserControllerTest : BaseControllerTest() {
     fun `updateAccount returns updated user when successful`() {
         val payload = generateUpdateUserRequest()
         val user = generateUser(userId)
-        val updatedUser = user.copy(name = payload.name!!, trainerName = payload.trainerName!!)
+        val updatedUser = user.copy(name = payload.name!!)
 
         every { userApi.updateAccount(any(), any()) } returns updatedUser
 
@@ -51,7 +51,6 @@ class UserControllerTest : BaseControllerTest() {
 
             assertThat(responseUser.id).isEqualTo(userId)
             assertThat(responseUser.name).isEqualTo(payload.name)
-            assertThat(responseUser.trainerName).isEqualTo(payload.trainerName)
         }
     }
 

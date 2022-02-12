@@ -102,13 +102,12 @@ class UserApiTest : BaseApiTest() {
     @Test
     fun `updateAccount returns updated user when account updated successfully`() {
         val updateUserRequest = UserStub.generateUpdateUserRequest()
-        val user = generateUser(8, updateUserRequest.name!!, updateUserRequest.trainerName!!)
+        val user = generateUser(8, updateUserRequest.name!!)
 
         every { userDao.updateUser(any(), any()) } returns user
 
         val updatedUser = api.updateAccount(user.id, updateUserRequest)
         assertThat(updatedUser?.name).isEqualTo(updateUserRequest.name)
-        assertThat(updatedUser?.trainerName).isEqualTo(updateUserRequest.trainerName)
     }
 
     @Test

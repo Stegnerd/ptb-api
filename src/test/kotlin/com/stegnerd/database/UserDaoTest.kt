@@ -69,7 +69,6 @@ class UserDaoTest : BaseDaoTest() {
                 val user = Users.getUserByID(userID)
                 assertThat(user?.id).isEqualTo(userID)
                 assertThat(user?.name).isEqualTo(newUser.name)
-                assertThat(user?.trainerName).isEqualTo(newUser.trainerName)
                 assertThat(user?.email).isEqualTo(newUser.email)
             } ?: throw IllegalStateException("ID cannot be null.")
         }
@@ -84,7 +83,6 @@ class UserDaoTest : BaseDaoTest() {
             val updatedUser = Users.updateUser(existingUser.id, updateUserRequest)
 
             assertThat(existingUser.name).isNotEqualTo(updatedUser?.name)
-            assertThat(existingUser.trainerName).isNotEqualTo(updatedUser?.trainerName)
         }
     }
 
@@ -128,7 +126,6 @@ class UserDaoTest : BaseDaoTest() {
         return User(
             id,
             name = newUser.name,
-            trainerName = newUser.trainerName,
             email = newUser.email,
             password =  BCrypt.hashpw(newUser.password, BCrypt.gensalt()),
             active = true,

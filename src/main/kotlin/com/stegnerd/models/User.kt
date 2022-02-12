@@ -10,7 +10,6 @@ import java.time.LocalDateTime
 data class User(
     val id: Int,
     val name: String,
-    val trainerName: String,
     val email: String,
     val password: String,
     val active: Boolean,
@@ -36,7 +35,6 @@ data class UpdateUserRequest(
 data class ResponseUser(
     val id: Int,
     val name: String,
-    val trainerName: String,
     val email: String
 )
 
@@ -47,7 +45,6 @@ data class ResponseUser(
 fun User.toResponseUser() = ResponseUser(
     this.id,
     this.name,
-    this.trainerName,
     this.email
 )
 

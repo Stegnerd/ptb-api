@@ -7,11 +7,10 @@ import java.time.LocalDateTime
 
 object UserStub {
 
-    fun generateUser(ID: Int = 8, name: String = "name", trainerName: String = "trainer_name"): User {
+    fun generateUser(ID: Int = 8, name: String = "name"): User {
         return User(
             ID,
             name,
-            trainerName,
             email = "name@example.com",
             password = "sample",
             active = true,
@@ -31,7 +30,6 @@ object UserStub {
         return ResponseUser(
             id = 8,
             name = "name",
-            trainerName = "trainer_name",
             email = "name@example.com"
         )
     }
