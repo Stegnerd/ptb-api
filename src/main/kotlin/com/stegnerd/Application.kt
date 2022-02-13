@@ -35,7 +35,8 @@ fun main(args: Array<String>) {
 }
 
 // sets up modules for the application
-fun Application.module(config: Config) {
+fun Application.module() {
+    val config = extractConfig(HoconApplicationConfig(ConfigFactory.load()))
     install(Koin) {
         modules(
             module {
@@ -72,7 +73,7 @@ fun setupEnvironment(config: Config): ApplicationEngineEnvironment {
         connector {
             port = 8080
         }
-        module { module(config) }
+        module { module() }
         // only set up self-signed cert for local dev
         if(config.isDevelopment){
             val keyStoreFile = File("build/keystore.jks")
