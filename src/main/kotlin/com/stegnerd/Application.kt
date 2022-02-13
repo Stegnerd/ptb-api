@@ -35,6 +35,7 @@ fun main(args: Array<String>) {
 }
 
 // sets up modules for the application
+// if you put properties in this method function you can run into runtime errors in heroku
 fun Application.module() {
     val config = extractConfig(HoconApplicationConfig(ConfigFactory.load()))
     install(Koin) {

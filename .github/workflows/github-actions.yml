@@ -26,3 +26,6 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Run Unit test
+        run: ./gradlew test
