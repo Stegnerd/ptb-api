@@ -9,7 +9,6 @@ object AuthStub {
     fun generateRegisterUserRequest(): RegisterUserRequest {
         return RegisterUserRequest(
             name = "name",
-            trainerName = "trainer_name",
             email = "name@example.com",
             password = "sample"
         )

@@ -23,8 +23,7 @@ data class User(
 
 @Serializable
 data class UpdateUserRequest(
-    val name: String? = null,
-    val trainerName: String? = null
+    val name: String? = null
 ) : Principal
 
 //endregion requests

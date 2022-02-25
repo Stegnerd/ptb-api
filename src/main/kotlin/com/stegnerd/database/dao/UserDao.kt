@@ -29,7 +29,6 @@ interface UserDao {
 object Users : Table(), UserDao {
     val id: Column<Int> = integer("id").autoIncrement()
     val name: Column<String> = varchar("name", 64)
-    val trainerName: Column<String> = varchar("trainer_name", 32)
     val email: Column<String> = varchar("email", 64)
     val password: Column<String> = varchar("password", 128)
     val active: Column<Boolean> = bool("active").default(true)
@@ -58,7 +57,6 @@ object Users : Table(), UserDao {
     override fun insertUser(newUser: RegisterUserRequest): Int? {
         return (insert {
             it[name] = newUser.name
-            it[trainerName] = newUser.trainerName
             it[email] = newUser.email
             it[password] = newUser.password
         })[id]
@@ -67,7 +65,6 @@ object Users : Table(), UserDao {
     override fun updateUser(userID: Int, updateUserRequest: UpdateUserRequest): User? {
         update({ id eq userID }) { user ->
             updateUserRequest.name?.let { user[name] = it }
-            updateUserRequest.trainerName?.let { user[trainerName] = it }
         }
         return getUserByID(userID)
     }

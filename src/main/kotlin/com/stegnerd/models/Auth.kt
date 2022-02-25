@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RegisterUserRequest(
     val name: String,
-    val trainerName: String,
     val email: String,
     val password: String
 ) : Principal

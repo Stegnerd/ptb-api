@@ -21,8 +21,7 @@ object UserStub {
 
     fun generateUpdateUserRequest(): UpdateUserRequest {
         return UpdateUserRequest(
-            name = "name updated",
-            trainerName = "updated trainer name"
+            name = "name updated"
         )
     }
 
