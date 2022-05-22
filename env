@@ -1,0 +1,8 @@
+DB_PASSWORD="#"
+DB_USER=#
+IS_DEVELOPMENT=false
+JDBC_URL=jdbc:postgresql://localhost:#/ptb_api
+JWT_AUDIENCE=https://#/api
+JWT_ISSUER=https://#/
+JWT_REALM="#"
+JWT_SECRET=#

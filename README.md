@@ -30,6 +30,8 @@ It will be the api for all ui interfaces. It is a ktor api with a postgres datab
 
 ## Setup
 ### To run project locally you will need to set up the following environment values:
+1. install  [env file](https://plugins.jetbrains.com/plugin/7861-envfile) and set up a run configuration with it
+2. modify env file with a . in front of it, and fill in values below:
 - jdbcUrl: example: jdbc:postgresql://localhost:5432/ptb_api
 - dbUser: example: whatever you set want (make sure it matches docker POSTGRES_USER)
 - dbPassword: example: whatever you want (make sure matches POSTGRES_PASSWORD)
@@ -57,6 +59,12 @@ You will need to update the configurations files and remove the period in front 
 2. name = what you want to see in postgres
 3. host = database name in docker-compose file: aka db
 4. user and pass = POSTGRES_USER && POSTGRES_PASSWORD
+
+### Running
+1. fill in all variables mentioned above
+2. docker-compose up
+3. run the api.
+4. make sure you can hit `http://localhost:8080/auth/register`
 
 ### Docker Commands
 #### How to start
