@@ -3,10 +3,10 @@ package com.stegnerd.modules.auth
 import com.auth0.jwt.interfaces.JWTVerifier
 import com.stegnerd.api.user.UserApi
 import com.stegnerd.database.DatabaseProviderContract
-import io.ktor.auth.Authentication
-import io.ktor.auth.jwt.jwt
+import io.ktor.server.auth.AuthenticationConfig
+import io.ktor.server.auth.jwt.jwt
 
-fun Authentication.Configuration.authenticationModule(
+fun AuthenticationConfig.authenticationModule(
     realmConfig: String,
     userApi: UserApi,
     databaseProvider: DatabaseProviderContract,
@@ -15,8 +15,8 @@ fun Authentication.Configuration.authenticationModule(
     jwt("jwt") {
         verifier(tokenVerifier)
         realm = realmConfig
-        validate {
-            it.payload.getClaim("id").asInt()?.let { userId ->
+        validate {credential ->
+            credential.payload.getClaim("id").asInt()?.let { userId ->
                 // do database query to find Principal subclass
                 databaseProvider.dbQuery {
                     userApi.getUserByID(userId)
