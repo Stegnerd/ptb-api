@@ -7,9 +7,9 @@ object Versions {
     const val hikariCP = "5.0.0"
     const val jbcrypt = "0.4"
     const val junit = "5.8.1"
-    const val koin = "3.1.2"
+    const val koin = "3.2.0"
     const val kotlin = "1.5.31"
-    const val ktor = "1.6.3"
+    const val ktor = "2.0.2"
     const val logback = "1.2.3"
     const val mockk = "1.12.0"
     const val postgresql = "42.2.24"
@@ -39,14 +39,18 @@ object Deps {
 
     object Ktor {
         // auth
-        const val auth = "io.ktor:ktor-auth:${Versions.ktor}"
-        const val authJwt = "io.ktor:ktor-auth-jwt:${Versions.ktor}"
+        const val auth = "io.ktor:ktor-server-auth:${Versions.ktor}"
+        const val authJwt = "io.ktor:ktor-server-auth-jwt:${Versions.ktor}"
         const val tls = "io.ktor:ktor-network-tls-certificates:${Versions.ktor}"
         // content negotiation
-        const val serialization = "io.ktor:ktor-serialization:${Versions.ktor}"
+        const val contentNegotiation = "io.ktor:ktor-server-content-negotiation:${Versions.ktor}"
+        const val serialization = "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
         // core
-        const val serverCore = "io.ktor:ktor-server-core:${Versions.ktor}"
+        const val serverCore = "io.ktor:ktor-server:${Versions.ktor}"
         const val serverNetty = "io.ktor:ktor-server-netty:${Versions.ktor}"
+        // forwarded headers
+        const val forwardedHeader = "io.ktor:ktor-server-forwarded-header:${Versions.ktor}"
+
     }
 
     object Tests {

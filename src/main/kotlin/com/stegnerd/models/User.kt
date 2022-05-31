@@ -1,6 +1,6 @@
 package com.stegnerd.models
 
-import io.ktor.auth.Principal
+import io.ktor.server.auth.Principal
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 

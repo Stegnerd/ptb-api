@@ -1,13 +1,12 @@
 package com.stegnerd.statuspages
 
-import io.ktor.application.call
-import io.ktor.features.StatusPages
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
-import io.ktor.response.respondText
+import io.ktor.server.plugins.statuspages.StatusPagesConfig
+import io.ktor.server.response.respondText
 
-fun StatusPages.Configuration.genericStatusPages() {
-    exception<UnknownError> {
+fun StatusPagesConfig.genericStatusPages() {
+    exception<UnknownError> { call, _ ->
         call.respondText("Internal Server Error", ContentType.Text.Plain, status = HttpStatusCode.InternalServerError)
     }
 }

@@ -12,10 +12,10 @@ import com.stegnerd.modules.di.ModulesInjection
 import com.stegnerd.utils.PasswordWrapper
 import com.stegnerd.utils.PasswordWrapperContract
 import com.typesafe.config.ConfigFactory
-import io.ktor.application.Application
-import io.ktor.application.install
-import io.ktor.config.HoconApplicationConfig
 import io.ktor.network.tls.certificates.generateCertificate
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.config.HoconApplicationConfig
 import io.ktor.server.engine.ApplicationEngineEnvironment
 import io.ktor.server.engine.applicationEngineEnvironment
 import io.ktor.server.engine.connector
@@ -23,7 +23,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.engine.sslConnector
 import io.ktor.server.netty.Netty
 import org.koin.dsl.module
-import org.koin.ktor.ext.Koin
+import org.koin.ktor.plugin.Koin
 import java.io.File
 
 

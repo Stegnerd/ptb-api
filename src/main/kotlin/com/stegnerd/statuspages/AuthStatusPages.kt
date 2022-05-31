@@ -1,16 +1,15 @@
 package com.stegnerd.statuspages
 
-import io.ktor.application.call
-import io.ktor.features.StatusPages
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
-import io.ktor.response.respondText
+import io.ktor.server.plugins.statuspages.StatusPagesConfig
+import io.ktor.server.response.respondText
 
-fun StatusPages.Configuration.authStatusPages() {
-    exception<AuthenticationException> { cause ->
+fun StatusPagesConfig.authStatusPages() {
+    exception<AuthenticationException> { call,cause ->
         call.respondText(cause.message, ContentType.Text.Plain, status = HttpStatusCode.Unauthorized)
     }
-    exception<AuthorizationException> { cause ->
+    exception<AuthorizationException> { call,cause ->
         call.respondText(cause.message, ContentType.Text.Plain, status = HttpStatusCode.Forbidden)
     }
 }

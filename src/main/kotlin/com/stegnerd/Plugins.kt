@@ -7,9 +7,9 @@ import com.stegnerd.plugins.configureRouting
 import com.stegnerd.plugins.configureSecurity
 import com.stegnerd.plugins.configureSerialization
 import com.stegnerd.plugins.configureStatusPages
-import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
-import io.ktor.auth.authentication
+import io.ktor.server.application.Application
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.auth.authentication
 import org.koin.ktor.ext.inject
 
 fun Application.configurePlugins() {

@@ -51,6 +51,7 @@ dependencies {
     implementation(Deps.Ktor.serverCore)
     implementation(Deps.Ktor.serverNetty)
     implementation(Deps.Ktor.tls)
+    implementation(Deps.Ktor.forwardedHeader)
     // Logging
     implementation(Deps.logback)
     // Security
