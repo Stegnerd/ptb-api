@@ -8,7 +8,7 @@ object Versions {
     const val jbcrypt = "0.4"
     const val junit = "5.8.1"
     const val koin = "3.2.0"
-    const val kotlin = "1.5.31"
+    const val kotlin = "1.6.21"
     const val ktor = "2.0.2"
     const val logback = "1.2.3"
     const val mockk = "1.12.0"
