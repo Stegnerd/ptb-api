@@ -1,13 +1,11 @@
-ARG VERSION=11
-FROM openjdk:${VERSION}-jdk as BUILD
+FROM gradle:7-jdk11 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle shadowJar --no-daemon
 
-COPY . /api
-WORKDIR /api
-RUN ./gradlew --no-daemon shadowJar
 
-FROM openjdk:${VERSION}-jre
-
-COPY --from=BUILD /api/build/libs/ptb-api-0.0.1-all.jar /bin/runner/run.jar
-WORKDIR /bin/runner
-
-CMD ["java","-jar","run.jar"]
+FROM openjdk:11
+EXPOSE 8080:8080
+RUN mkdir /app
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/ptb-api-2.0.3-all.jar
+ENTRYPOINT ["java","-jar","/app/ptb-api-2.0.3-all.jar"]

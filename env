@@ -1,6 +1,8 @@
 DB_PASSWORD="#"
 DB_USER=#
 IS_DEVELOPMENT=false
+# if using complete container version
+#JDBC_URL=jdbc:postgresql://db:5432/ptb_api
 JDBC_URL=jdbc:postgresql://localhost:#/ptb_api
 JWT_AUDIENCE=https://#/api
 JWT_ISSUER=https://#/
